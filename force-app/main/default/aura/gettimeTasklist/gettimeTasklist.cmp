@@ -1,0 +1,37 @@
+<aura:component controller="gettimeTasklist" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:handler name="init" value="{! this }" action="{!c.doInit}"/>
+    <aura:attribute name="ltngHour" type="Integer" default="00" />
+    <aura:attribute name="ltngMinute" type="Integer" default="00"/>
+    <aura:attribute name="ltngSecond" type="Integer" default="00"/>
+    <aura:attribute name="ltngTimmer" type="Integer" default="00:00:00" />
+    <aura:attribute name="ltngDay" type="Integer" default="00" />
+    <aura:attribute name="ltngIsDisplayed" type="boolean" default="false"/> 
+    <aura:attribute name="timeinfo" type="string" default=""/>
+    <aura:attribute name="timInv" type="Integer" default="00:00:00" />
+    
+    <div class="slds-p-around_small" style="width: 100%; background-color: #ffffff;">
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem size="12" largeDeviceSize="6" mediumDeviceSize="6" smallDeviceSize="12">
+                <c:getTimeInvestedTaskList recordId="{!v.recordId}"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12" largeDeviceSize="6" mediumDeviceSize="6" smallDeviceSize="12">
+                <div class="slds-grid slds-wrap" >
+                    <div class="slds-col slds-size_1-of-1 slds-align_absolute-center" >
+                        <b style="font-size:20px; padding-top:5px; padding-bottom:5px;">CURRENT TIME</b>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+                        <aura:if isTrue="{!v.timeinfo != 'start' }">
+                            <b style="font-size:18px; color:white; background-color:#fe9339; padding: 8px 10px; border-radius:25px;"> {!v.ltngDay} Days  {!v.ltngTimmer}  </b>
+                        </aura:if>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-1 slds-align_absolute-center" style="padding-top:5px;padding-bottom:5px;">
+                        <lightning:buttonIcon iconName="utility:play" variant="success" alternativeText="Play" title="Start Time" onclick="{!c.starttiming}" disabled="{!v.timeinfo != 'start' }"/>
+                        <lightning:buttonIcon class="redOnYellow" iconName="utility:stop" variant="success" alternativeText="success" title="Stop Time" onclick="{!c.endtiming}" disabled="{!v.timeinfo != 'end' }"/>
+                    </div>  
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+</aura:component>

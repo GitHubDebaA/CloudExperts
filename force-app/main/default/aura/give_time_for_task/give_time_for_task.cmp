@@ -1,0 +1,73 @@
+<aura:component controller="give_time_for_task_cls" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" access="global">
+    <aura:attribute name="show_spinner" type="Boolean" default="true"/>
+    <aura:attribute name="time_type" type="Object[]" default="['Comm. End Dt.', 'Rev. End Dt.']"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}"/>
+    
+    <aura:html tag="style">
+        .slds-modal__container{
+        height : 100%;
+        width: 100%;
+        max-width: 180rem;
+        padding-left: 25%;
+        padding-right: 25%;        
+        }
+        .modal-body{
+        height : 400px !important;
+        max-height: 550px !important;
+        }
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }       
+        .slds-modal__content{
+        overflow-y:0rem !important;
+        height:unset !important;
+        max-height:unset !important;
+        }
+        html{
+        background-color: white;
+        }
+    </aura:html>
+    
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick="{!c.closeit}">
+                <lightning:icon iconName="utility:close" alternativeText="Close" title="Close" />
+            </button>
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Give Time</h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="position: relative; min-height: 100px;">
+                <aura:if isTrue="{!v.show_spinner}">
+                    <div class="exampleHolder">
+                        <lightning:spinner alternativeText="Loading" size="medium" />
+                    </div>
+                    <aura:set attribute="else">
+                        <div style="display: flex; flex-direction: row; width: 100%; min-height: 100px;">
+                            <div style="width: 45%; text-align: right; padding: 10px; font-size: 16px;">
+                                Select Time Type
+                            </div>
+                            <div style="width: 50%; padding: 20px; margin-top : 10px;">
+                                <aura:iteration items="{!v.time_type}" var="item" indexVar="row">
+                                    <div style="margin: 5px; padding: 5px; ">
+                                        <lightning:input type="checkbox" label="{!item.name}" name="{!row}" checked="{!item.is_selected}" onchange="{!c.select_handle}"/>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                        </div>
+                        
+                    </aura:set>
+                </aura:if>
+            </div>
+            <div class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick="{!c.closeit}">Cancel</button>
+                <button class="slds-button slds-button_brand" onclick="{!c.saveit}" disabled="{!v.show_spinner}">Save</button>
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    
+</aura:component>

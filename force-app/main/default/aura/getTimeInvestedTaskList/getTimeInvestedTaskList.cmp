@@ -1,0 +1,42 @@
+<!--Created by : Pranil Ganvir
+Created Date : 10-03-23
+-->
+<!--Last Modified by : Pranil Ganvir
+Last Modified Date : 13-03-23
+Changed the background color of timer
+-->
+
+<!--Last Modified by : Pranil Ganvir
+Last Modified Date : 15-03-23
+Modified the gettime2 helper method and added if else condition
+-->
+
+<aura:component controller = "getTimeInvestedTaskList_Apex" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:handler name="init" value="{! this }" action="{!c.doInit}"/>
+    <aura:attribute name="ltngHour" type="Integer" default="00" />
+    <aura:attribute name="ltngMinute" type="Integer" default="00"/>
+    <aura:attribute name="ltngSecond" type="Integer" default="00"/>
+    <aura:attribute name="ltngTimmer" type="Integer" default="00:00:00" />
+    <aura:attribute name="ltngDay" type="Integer" default="00" />
+    <aura:attribute name="ltngIsDisplayed" type="boolean" default="false"/> 
+    <aura:attribute name="timeinfo" type="string" default=""/>
+    <aura:attribute name="timeinv" type="boolean" default="false"/> 
+    <aura:attribute name="timeInvst" type="Integer" default="00" />
+    <aura:attribute name="ltngTimmer1" type="Integer" default="00:00:00" />
+    <aura:attribute name="ltngDay1" type="Integer" default="00" />
+    
+    <div style="width: 100%;">
+        <div class="slds-align_absolute-center">
+            <b style="font-size:20px; padding :5px 0px;">TOTAL TIME</b>
+        </div>
+        
+        <div class="slds-align_absolute-center" >
+            <aura:if isTrue="{!v.timeinfo != 'start' }">
+                <b style="font-size:18px; color:white; background-color:#fe9339; padding: 8px 10px; border-radius:25px;"> {!v.ltngDay} Days  {!v.ltngTimmer}  </b>
+                <aura:set attribute="else">
+                    <b style="font-size:18px;color:white;background-color:#fe9339;padding-top:8px;padding-bottom:8px;padding-left:10px;padding-right:10px;border-radius:25px;">  {!v.ltngDay1} Days  {!v.ltngTimmer1} </b>
+                </aura:set>
+            </aura:if>
+        </div>
+    </div>     
+</aura:component>
